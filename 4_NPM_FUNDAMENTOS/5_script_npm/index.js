@@ -1,0 +1,9 @@
+const chalk = require("chalk");
+const _ = require("lodash");
+
+const a = [1, 2, 3, 4, 5];
+const b = [9, 8, 7, 6, 4];
+
+const diff = _.difference(a, b);
+
+console.log(chalk.red.bold(diff));
