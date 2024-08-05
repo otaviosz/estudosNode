@@ -27,6 +27,7 @@ function operation() {
       if (action === "Criar conta") {
         createAccount();
       } else if (action === "Consultar Saldo") {
+        getAccountBalance();
       } else if (action === "Depositar") {
         deposit();
       } else if (action === "Sacar") {
@@ -157,5 +158,30 @@ function addAmount(accountName, amount) {
     chalk.green(`Foi depositado o valor de R$${amount} na sua conta!`),
   );
 }
+
+// show balance account
+
+function getAccountBalance() {
+  inquirer.prompt([
+    {
+      name: 'accountName',
+      message: 'Qual o nome da sua conta?'
+    }
+  ]).then((resposta) => {
+
+    const accountName = resposta['accountName']
+
+    if(!checkAccount(accountName)){
+      getAccountBalance();
+    }
+
+    const accountData = getAccount(accountName)
+
+    console.log(chalk.bgBlue.black(`Olá, o saldo da sua conta é de R$${accountData.balance}`))
+    operation();
+
+  }).catch(err => console.log(err))
+}
+
 
 operation();
